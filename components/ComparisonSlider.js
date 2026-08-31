@@ -10,10 +10,12 @@ export default function ComparisonSlider({
   afterLabel = 'MJML Bits Pro',
   defaultPosition = 50,
   hoverMode = false,
+  onSlideRightComplete,
   className = '',
 }) {
   const [sliderPosition, setSliderPosition] = useState(defaultPosition);
   const [isDragging, setIsDragging] = useState(false);
+  const [hasCompletedRight, setHasCompletedRight] = useState(false);
   const containerRef = useRef(null);
 
   const handleMove = useCallback((clientX) => {
@@ -22,7 +24,14 @@ export default function ComparisonSlider({
     const x = Math.max(0, Math.min(clientX - rect.left, rect.width));
     const percent = Math.max(0, Math.min((x / rect.width) * 100, 100));
     setSliderPosition(percent);
-  }, []);
+
+    if (percent >= 98 && !hasCompletedRight) {
+      setHasCompletedRight(true);
+      if (onSlideRightComplete) {
+        onSlideRightComplete();
+      }
+    }
+  }, [hasCompletedRight, onSlideRightComplete]);
 
   const handleTouchMove = useCallback((e) => {
     if (!isDragging && !hoverMode) return;
@@ -55,6 +64,13 @@ export default function ComparisonSlider({
       window.removeEventListener('touchend', handleMouseUp);
     };
   }, []);
+
+  // Reset completion state if position drops below 80%
+  useEffect(() => {
+    if (sliderPosition < 80 && hasCompletedRight) {
+      setHasCompletedRight(false);
+    }
+  }, [sliderPosition, hasCompletedRight]);
 
   return (
     <div
