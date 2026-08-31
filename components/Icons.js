@@ -17,6 +17,9 @@ import {
   Mail,
   Flame,
   Star,
+  Heart,
+  Share2,
+  Code,
 } from 'lucide-react';
 
 export function GitHubIcon({ className = "w-4 h-4", ...props }) {
@@ -49,3 +52,6 @@ export const LayersIcon = Layers;
 export const MailIcon = Mail;
 export const FlameIcon = Flame;
 export const StarIcon = Star;
+export const HeartIcon = Heart;
+export const ShareIcon = Share2;
+export const CodeIcon = Code;

@@ -221,7 +221,11 @@ export default function ComponentsGallerySection() {
               {/* 3-Column Component Grid matching Reference */}
               <div className="component-cards-grid">
                 {filteredComponents.map((item) => (
-                  <div key={item.id} className="comp-grid-card">
+                  <Link
+                    key={item.id}
+                    href={`/components/${item.id}`}
+                    className="comp-grid-card"
+                  >
                     {/* Card Preview Window */}
                     <div className="comp-preview-viewport">
                       {item.badge && (
@@ -325,7 +329,7 @@ export default function ComponentsGallerySection() {
                       <h3 className="comp-name">{item.name}</h3>
                       <span className="comp-category">{item.category}</span>
                     </div>
-                  </div>
+                  </Link>
                 ))}
               </div>
             </div>
