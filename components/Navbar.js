@@ -12,6 +12,7 @@ export default function Navbar() {
 
   const navLinks = [
     { label: 'Docs', href: '/docs' },
+    { label: 'Components', href: '/components' },
     { label: 'Tools', href: '/tools' },
     { label: 'Pro', href: '/pro' },
     { label: 'Sponsors', href: '/sponsors' },
