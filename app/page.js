@@ -156,9 +156,10 @@ export default function HomePage() {
 
   const activePreset = COMPARISON_PRESETS[activePresetIndex];
 
-  // GSAP Hero entrance
+  // GSAP Hero entrance & Scroll-driven Genie Entrance for Slider Card
   useEffect(() => {
     const ctx = gsap.context(() => {
+      // Hero Entrance Timeline
       const tl = gsap.timeline({ defaults: { ease: 'power3.out' } });
 
       tl.fromTo(
@@ -178,6 +179,41 @@ export default function HomePage() {
           { opacity: 1, duration: 0.6 },
           '-=0.4'
         );
+
+      // Scroll-Linked 3D Genie Lamp Unfold & Stretch Effect on Scroll-In
+      if (sliderCardRef.current && sliderSectionRef.current) {
+        gsap.fromTo(
+          sliderCardRef.current,
+          {
+            opacity: 0,
+            scaleX: 0.35,
+            scaleY: 0.6,
+            rotateX: 52,
+            rotateZ: -4,
+            y: 140,
+            transformPerspective: 1200,
+            transformOrigin: '50% 100%',
+            filter: 'blur(8px) brightness(1.4)',
+          },
+          {
+            opacity: 1,
+            scaleX: 1,
+            scaleY: 1,
+            rotateX: 0,
+            rotateZ: 0,
+            y: 0,
+            filter: 'blur(0px) brightness(1)',
+            duration: 1.3,
+            ease: 'power3.out',
+            scrollTrigger: {
+              trigger: sliderSectionRef.current,
+              start: 'top 85%',
+              end: 'top 30%',
+              scrub: 1.2,
+            },
+          }
+        );
+      }
     }, heroRef);
 
     return () => ctx.revert();
@@ -192,12 +228,14 @@ export default function HomePage() {
       if (!sliderCardRef.current) return;
       setIsTransitioning(true);
 
-      // Genie Exit Animation
+      // Genie Exit Animation (sucking into lamp)
       gsap.to(sliderCardRef.current, {
         opacity: 0,
-        scale: 0.7,
-        rotateX: 45,
-        y: -60,
+        scaleX: 0.4,
+        scaleY: 0.5,
+        rotateX: 50,
+        y: -70,
+        filter: 'blur(6px) brightness(1.5)',
         duration: 0.85,
         ease: 'power3.in',
         onComplete: () => {
@@ -209,15 +247,19 @@ export default function HomePage() {
             sliderCardRef.current,
             {
               opacity: 0,
-              scale: 0.72,
-              rotateX: -40,
-              y: 80,
+              scaleX: 0.4,
+              scaleY: 0.6,
+              rotateX: -45,
+              y: 90,
+              filter: 'blur(6px)',
             },
             {
               opacity: 1,
-              scale: 1,
+              scaleX: 1,
+              scaleY: 1,
               rotateX: 0,
               y: 0,
+              filter: 'blur(0px)',
               duration: 0.95,
               ease: 'power3.out',
               onComplete: () => {
@@ -311,8 +353,8 @@ export default function HomePage() {
           <div
             ref={sliderCardRef}
             style={{
-              willChange: 'transform, opacity',
-              transformPerspective: 1100,
+              willChange: 'transform, opacity, filter',
+              transformPerspective: 1200,
               transformOrigin: '50% 100%',
             }}
           >
