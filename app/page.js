@@ -6,16 +6,17 @@ import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { ArrowRightIcon } from '@/components/Icons';
 import ComparisonSlider from '@/components/ComparisonSlider';
+import FoldText from '@/components/FoldText';
 
 gsap.registerPlugin(ScrollTrigger);
 
 export default function HomePage() {
   const heroRef = useRef(null);
-  const titleRef = useRef(null);
   const descRef = useRef(null);
   const actionsRef = useRef(null);
   const statsRef = useRef(null);
   const sliderSectionRef = useRef(null);
+  const sliderCardRef = useRef(null);
 
   useEffect(() => {
     const ctx = gsap.context(() => {
@@ -23,19 +24,13 @@ export default function HomePage() {
       const tl = gsap.timeline({ defaults: { ease: 'power3.out' } });
 
       tl.fromTo(
-        titleRef.current,
-        { opacity: 0, y: 30 },
-        { opacity: 1, y: 0, duration: 1.0 }
+        descRef.current,
+        { opacity: 0, y: 25 },
+        { opacity: 1, y: 0, duration: 0.8, delay: 0.2 }
       )
         .fromTo(
-          descRef.current,
-          { opacity: 0, y: 20 },
-          { opacity: 1, y: 0, duration: 0.8 },
-          '-=0.6'
-        )
-        .fromTo(
           actionsRef.current,
-          { opacity: 0, y: 15 },
+          { opacity: 0, y: 20 },
           { opacity: 1, y: 0, duration: 0.7 },
           '-=0.5'
         )
@@ -46,22 +41,34 @@ export default function HomePage() {
           '-=0.4'
         );
 
-      // Scroll-Triggered Reveal for Comparison Slider Section
-      gsap.fromTo(
-        sliderSectionRef.current,
-        { opacity: 0, y: 50 },
-        {
-          opacity: 1,
-          y: 0,
-          duration: 1.2,
-          ease: 'power3.out',
-          scrollTrigger: {
-            trigger: sliderSectionRef.current,
-            start: 'top 85%',
-            toggleActions: 'play none none none',
+      // Genie 3D Unfold + Scale Effect for Comparison Slider Card (Forward & Backward scroll)
+      if (sliderCardRef.current) {
+        gsap.fromTo(
+          sliderCardRef.current,
+          {
+            opacity: 0,
+            scale: 0.72,
+            rotateX: 38,
+            y: 90,
+            transformPerspective: 1100,
+            transformOrigin: '50% 100%',
           },
-        }
-      );
+          {
+            opacity: 1,
+            scale: 1,
+            rotateX: 0,
+            y: 0,
+            duration: 1.1,
+            ease: 'power3.out',
+            scrollTrigger: {
+              trigger: sliderSectionRef.current,
+              start: 'top 82%',
+              end: 'top 25%',
+              toggleActions: 'play reverse play reverse',
+            },
+          }
+        );
+      }
     }, heroRef);
 
     return () => ctx.revert();
@@ -111,8 +118,21 @@ export default function HomePage() {
       <section className="hero-section hero-centered">
         <div className="container">
           <div className="hero-content-center">
-            <h1 ref={titleRef} className="hero-title">
-              MJML components for{' '}
+            <h1 className="hero-title">
+              <FoldText
+                text="MJML components for"
+                splitBy="word"
+                hinge="top"
+                trigger="mount"
+                duration={0.7}
+                stagger={0.08}
+                ease="power3.out"
+                perspective={800}
+                creaseShading={0.4}
+                fontSize="inherit"
+                fontWeight={800}
+                color="#ffffff"
+              />{' '}
               <span className="text-gradient">creative emails</span>
             </h1>
 
@@ -143,20 +163,35 @@ export default function HomePage() {
         <div className="container">
           <div style={{ textAlign: 'center', marginBottom: '36px' }}>
             <h2 style={{ fontSize: '32px', fontWeight: 800, color: '#ffffff', letterSpacing: '-0.02em', marginBottom: '12px' }}>
-              Standard Email vs. <span className="text-gradient">MJML Bits</span>
+              <FoldText
+                text="Standard Email vs. MJML Bits"
+                splitBy="word"
+                hinge="top"
+                trigger="scroll"
+                duration={0.65}
+                stagger={0.06}
+                ease="power3.out"
+                perspective={700}
+                creaseShading={0.5}
+                fontSize="inherit"
+                fontWeight={800}
+                color="#ffffff"
+              />
             </h2>
             <p style={{ fontSize: '16px', color: 'var(--text-secondary)', maxWidth: '560px', margin: '0 auto' }}>
               Drag the slider to compare standard plain templates with expressive, modern MJML Bits components.
             </p>
           </div>
 
-          <ComparisonSlider
-            beforeImage={plainEmailMock}
-            afterImage={proEmailMock}
-            beforeLabel="Standard MJML"
-            afterLabel="MJML Bits Design"
-            defaultPosition={50}
-          />
+          <div ref={sliderCardRef} style={{ willChange: 'transform, opacity' }}>
+            <ComparisonSlider
+              beforeImage={plainEmailMock}
+              afterImage={proEmailMock}
+              beforeLabel="Standard MJML"
+              afterLabel="MJML Bits Design"
+              defaultPosition={50}
+            />
+          </div>
         </div>
       </section>
     </div>
