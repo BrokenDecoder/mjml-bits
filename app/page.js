@@ -7,7 +7,6 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { ArrowRightIcon } from '@/components/Icons';
 import ComparisonSlider from '@/components/ComparisonSlider';
 import FoldText from '@/components/FoldText';
-import ComponentsGallerySection from '@/components/ComponentsGallerySection';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -371,9 +370,6 @@ export default function HomePage() {
           </div>
         </div>
       </section>
-
-      {/* ── Browse All Components Section on Home Page ── */}
-      <ComponentsGallerySection />
     </div>
   );
 }
