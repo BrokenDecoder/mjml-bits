@@ -104,7 +104,7 @@ button {
   padding: 0 24px;
 }
 
-/* Navbar (Border-less, Clean & Floating) */
+/* Navbar */
 .navbar {
   position: sticky;
   top: 0;
@@ -123,10 +123,12 @@ button {
   align-items: center;
 }
 
-.nav-left {
+/* Desktop Navbar */
+.nav-desktop {
   display: flex;
   align-items: center;
   gap: 16px;
+  width: 100%;
 }
 
 .nav-brand {
@@ -173,6 +175,130 @@ button {
 
 .nav-link.active {
   color: #ffffff;
+}
+
+/* Mobile Floating Pill Navbar (Hidden on desktop) */
+.nav-mobile-pill {
+  display: none;
+}
+
+.mobile-drawer-overlay {
+  display: none;
+}
+
+/* Responsive Mobile Navigation */
+@media (max-width: 768px) {
+  .navbar {
+    height: 72px;
+    padding: 12px 16px 0;
+  }
+
+  .navbar-inner {
+    padding: 0;
+    justify-content: center;
+  }
+
+  .nav-desktop {
+    display: none;
+  }
+
+  /* Mobile Floating Glass Pill */
+  .nav-mobile-pill {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    max-width: 480px;
+    height: 52px;
+    padding: 6px 10px 6px 16px;
+    background: linear-gradient(135deg, rgba(32, 22, 54, 0.88) 0%, rgba(18, 14, 28, 0.92) 100%);
+    border: 1px solid rgba(168, 85, 247, 0.35);
+    border-radius: 14px;
+    box-shadow: 0 12px 35px rgba(0, 0, 0, 0.6), 0 0 25px rgba(168, 85, 247, 0.2);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+  }
+
+  .mobile-pill-actions {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .mobile-icon-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 36px;
+    height: 36px;
+    border-radius: 8px;
+    background: rgba(255, 255, 255, 0.06);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    color: #cbd5e1;
+    transition: all 0.15s ease;
+  }
+
+  .mobile-icon-btn:hover {
+    background: rgba(255, 255, 255, 0.12);
+    color: #ffffff;
+  }
+
+  .mobile-get-pro-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg, #a855f7 0%, #9333ea 100%);
+    color: #ffffff;
+    font-size: 13px;
+    font-weight: 700;
+    padding: 7px 16px;
+    border-radius: 8px;
+    box-shadow: 0 0 18px rgba(168, 85, 247, 0.45);
+    letter-spacing: -0.01em;
+    transition: all 0.2s ease;
+  }
+
+  .mobile-get-pro-btn:hover {
+    box-shadow: 0 0 24px rgba(168, 85, 247, 0.7);
+  }
+
+  /* Mobile Drawer */
+  .mobile-drawer-overlay {
+    display: block;
+    position: fixed;
+    top: 76px;
+    left: 16px;
+    right: 16px;
+    z-index: 99;
+  }
+
+  .mobile-drawer {
+    background: linear-gradient(180deg, rgba(24, 18, 38, 0.95) 0%, rgba(14, 11, 22, 0.98) 100%);
+    border: 1px solid rgba(168, 85, 247, 0.3);
+    border-radius: 14px;
+    padding: 12px;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.8), 0 0 25px rgba(168, 85, 247, 0.15);
+    backdrop-filter: blur(24px);
+    -webkit-backdrop-filter: blur(24px);
+  }
+
+  .mobile-drawer-link {
+    font-size: 15px;
+    font-weight: 600;
+    color: #cbd5e1;
+    padding: 10px 14px;
+    border-radius: 8px;
+    transition: all 0.15s ease;
+  }
+
+  .mobile-drawer-link:hover,
+  .mobile-drawer-link.active {
+    background: rgba(168, 85, 247, 0.2);
+    color: #ffffff;
+  }
 }
 
 /* Button Primary Hero */
@@ -826,6 +952,9 @@ button {
   }
   .tools-grid {
     grid-template-columns: 1fr;
+  }
+  .hero-section.hero-centered {
+    padding: 100px 0 80px;
   }
   .hero-title {
     font-size: 38px;
