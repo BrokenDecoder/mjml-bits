@@ -37,8 +37,12 @@ export default function ComparisonSlider({
     }
   }, [hoverMode, isDragging, handleMove]);
 
-  const handleMouseDown = () => {
-    if (!hoverMode) setIsDragging(true);
+  const handleMouseDown = (e) => {
+    e.preventDefault();
+    if (!hoverMode) {
+      setIsDragging(true);
+      handleMove(e.clientX);
+    }
   };
 
   useEffect(() => {
@@ -55,35 +59,41 @@ export default function ComparisonSlider({
   return (
     <div
       ref={containerRef}
-      className={`comparison-slider-container ${className}`}
+      className={`comparison-slider-container ${isDragging ? 'is-dragging' : ''} ${className}`}
       onMouseMove={handleMouseMove}
       onTouchMove={handleTouchMove}
       onMouseDown={handleMouseDown}
     >
-      {/* After / Top Layer (Right Side Visible initially) */}
-      <div className="comparison-image-wrapper comparison-after">
-        {typeof afterImage === 'string' ? (
-          <img src={afterImage} alt={afterLabel} className="comparison-image" />
-        ) : (
-          afterImage
-        )}
-        <span className="comparison-label after-label">{afterLabel}</span>
-      </div>
-
-      {/* Before / Clipped Bottom Layer (Left Side) */}
-      <div
-        className="comparison-image-wrapper comparison-before"
-        style={{ clipPath: `inset(0 ${100 - sliderPosition}% 0 0)` }}
-      >
-        {typeof beforeImage === 'string' ? (
-          <img src={beforeImage} alt={beforeLabel} className="comparison-image" />
-        ) : (
-          beforeImage
-        )}
+      {/* Background/Base Layer: Standard MJML (Left / Full) */}
+      <div className="comparison-image-wrapper comparison-before">
+        <div className="comparison-inner-content">
+          {typeof beforeImage === 'string' ? (
+            <img src={beforeImage} alt={beforeLabel} className="comparison-image" />
+          ) : (
+            beforeImage
+          )}
+        </div>
         <span className="comparison-label before-label">{beforeLabel}</span>
       </div>
 
-      {/* Handle Divider */}
+      {/* Foreground/Overlay Layer: MJML Bits Design (Clipped strictly from Left edge to slider position) */}
+      <div
+        className="comparison-image-wrapper comparison-after"
+        style={{
+          clipPath: `polygon(${sliderPosition}% 0%, 100% 0%, 100% 100%, ${sliderPosition}% 100%)`,
+        }}
+      >
+        <div className="comparison-inner-content">
+          {typeof afterImage === 'string' ? (
+            <img src={afterImage} alt={afterLabel} className="comparison-image" />
+          ) : (
+            afterImage
+          )}
+        </div>
+        <span className="comparison-label after-label">{afterLabel}</span>
+      </div>
+
+      {/* Draggable Divider Handle */}
       <div
         className="comparison-handle"
         style={{ left: `${sliderPosition}%` }}
