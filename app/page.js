@@ -1,8 +1,72 @@
+'use client';
+
+import { useRef, useEffect } from 'react';
 import Link from 'next/link';
+import gsap from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { ArrowRightIcon } from '@/components/Icons';
 import ComparisonSlider from '@/components/ComparisonSlider';
 
+gsap.registerPlugin(ScrollTrigger);
+
 export default function HomePage() {
+  const heroRef = useRef(null);
+  const titleRef = useRef(null);
+  const descRef = useRef(null);
+  const actionsRef = useRef(null);
+  const statsRef = useRef(null);
+  const sliderSectionRef = useRef(null);
+
+  useEffect(() => {
+    const ctx = gsap.context(() => {
+      // Hero Entrance Timeline
+      const tl = gsap.timeline({ defaults: { ease: 'power3.out' } });
+
+      tl.fromTo(
+        titleRef.current,
+        { opacity: 0, y: 30 },
+        { opacity: 1, y: 0, duration: 1.0 }
+      )
+        .fromTo(
+          descRef.current,
+          { opacity: 0, y: 20 },
+          { opacity: 1, y: 0, duration: 0.8 },
+          '-=0.6'
+        )
+        .fromTo(
+          actionsRef.current,
+          { opacity: 0, y: 15 },
+          { opacity: 1, y: 0, duration: 0.7 },
+          '-=0.5'
+        )
+        .fromTo(
+          statsRef.current,
+          { opacity: 0 },
+          { opacity: 1, duration: 0.6 },
+          '-=0.4'
+        );
+
+      // Scroll-Triggered Reveal for Comparison Slider Section
+      gsap.fromTo(
+        sliderSectionRef.current,
+        { opacity: 0, y: 50 },
+        {
+          opacity: 1,
+          y: 0,
+          duration: 1.2,
+          ease: 'power3.out',
+          scrollTrigger: {
+            trigger: sliderSectionRef.current,
+            start: 'top 85%',
+            toggleActions: 'play none none none',
+          },
+        }
+      );
+    }, heroRef);
+
+    return () => ctx.revert();
+  }, []);
+
   const plainEmailMock = (
     <div className="comparison-card-mock mock-plain">
       <div className="mock-plain-email">
@@ -42,29 +106,29 @@ export default function HomePage() {
   );
 
   return (
-    <>
+    <div ref={heroRef}>
       {/* Hero Section */}
       <section className="hero-section hero-centered">
         <div className="container">
           <div className="hero-content-center">
-            <h1 className="hero-title">
+            <h1 ref={titleRef} className="hero-title">
               MJML components for{' '}
               <span className="text-gradient">creative emails</span>
             </h1>
 
-            <p className="hero-desc">
+            <p ref={descRef} className="hero-desc">
               Highly customizable email components &amp; backgrounds that drop
               into your project and instantly make it stand out
             </p>
 
-            <div className="hero-actions">
+            <div ref={actionsRef} className="hero-actions">
               <Link href="/docs" className="btn-primary">
                 <span>Browse Components</span>
                 <ArrowRightIcon className="w-4 h-4" />
               </Link>
             </div>
 
-            <div className="hero-stats">
+            <div ref={statsRef} className="hero-stats">
               170+ COMPONENTS &nbsp;·&nbsp; FREE FOREVER
             </div>
           </div>
@@ -72,7 +136,10 @@ export default function HomePage() {
       </section>
 
       {/* Comparison Slider Showcase Section */}
-      <section style={{ padding: '0 24px 120px', position: 'relative', zIndex: 2 }}>
+      <section
+        ref={sliderSectionRef}
+        style={{ padding: '0 24px 120px', position: 'relative', zIndex: 2 }}
+      >
         <div className="container">
           <div style={{ textAlign: 'center', marginBottom: '36px' }}>
             <h2 style={{ fontSize: '32px', fontWeight: 800, color: '#ffffff', letterSpacing: '-0.02em', marginBottom: '12px' }}>
@@ -92,6 +159,6 @@ export default function HomePage() {
           />
         </div>
       </section>
-    </>
+    </div>
   );
 }

@@ -2,6 +2,7 @@ import './globals.css';
 import { Plus_Jakarta_Sans, JetBrains_Mono } from 'next/font/google';
 import Navbar from '@/components/Navbar';
 import Background from '@/components/Background';
+import SmoothScrollProvider from '@/components/SmoothScrollProvider';
 
 const sansFont = Plus_Jakarta_Sans({
   subsets: ['latin'],
@@ -27,14 +28,16 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en" className={`${sansFont.variable} ${monoFont.variable}`}>
       <body className={sansFont.className}>
-        {/* Full-Screen WebGL Background & Grid */}
-        <Background />
+        <SmoothScrollProvider>
+          {/* Full-Screen WebGL Background & Grid */}
+          <Background />
 
-        {/* Main Application Container */}
-        <div className="app-wrapper">
-          <Navbar />
-          <main>{children}</main>
-        </div>
+          {/* Main Application Container */}
+          <div className="app-wrapper">
+            <Navbar />
+            <main>{children}</main>
+          </div>
+        </SmoothScrollProvider>
       </body>
     </html>
   );
