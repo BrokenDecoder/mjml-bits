@@ -64,8 +64,13 @@ export default function ComparisonSlider({
       onTouchMove={handleTouchMove}
       onMouseDown={handleMouseDown}
     >
-      {/* Background/Base Layer: Standard MJML (Left / Full) */}
-      <div className="comparison-image-wrapper comparison-before">
+      {/* Background Layer: Standard MJML (Left Side - clipped to sliderPosition) */}
+      <div
+        className="comparison-image-wrapper comparison-before"
+        style={{
+          clipPath: `polygon(0% 0%, ${sliderPosition}% 0%, ${sliderPosition}% 100%, 0% 100%)`,
+        }}
+      >
         <div className="comparison-inner-content">
           {typeof beforeImage === 'string' ? (
             <img src={beforeImage} alt={beforeLabel} className="comparison-image" />
@@ -73,10 +78,15 @@ export default function ComparisonSlider({
             beforeImage
           )}
         </div>
-        <span className="comparison-label before-label">{beforeLabel}</span>
+        <span
+          className="comparison-label before-label"
+          style={{ opacity: sliderPosition < 12 ? 0 : 1 }}
+        >
+          {beforeLabel}
+        </span>
       </div>
 
-      {/* Foreground/Overlay Layer: MJML Bits Design (Clipped strictly from Left edge to slider position) */}
+      {/* Foreground Layer: MJML Bits Design (Right Side - clipped to sliderPosition) */}
       <div
         className="comparison-image-wrapper comparison-after"
         style={{
@@ -90,7 +100,12 @@ export default function ComparisonSlider({
             afterImage
           )}
         </div>
-        <span className="comparison-label after-label">{afterLabel}</span>
+        <span
+          className="comparison-label after-label"
+          style={{ opacity: sliderPosition > 88 ? 0 : 1 }}
+        >
+          {afterLabel}
+        </span>
       </div>
 
       {/* Draggable Divider Handle */}
