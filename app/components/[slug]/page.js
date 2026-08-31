@@ -12,7 +12,7 @@ import {
   ChevronDownIcon,
   ArrowRightIcon,
 } from '@/components/Icons';
-import { COMPONENTS_CATALOG, SIDEBAR_COMPONENTS_LIST } from '@/lib/componentsData';
+import { COMPONENTS_CATALOG, COMPONENT_CATEGORIES } from '@/lib/componentsData';
 import BalatroShader from '@/components/BalatroShader';
 import DarkVeil from '@/components/DarkVeil';
 import ComparisonSlider from '@/components/ComparisonSlider';
@@ -45,42 +45,52 @@ export default function ComponentDetailPage() {
     setTimeout(() => setCopiedCode(false), 2000);
   };
 
-  const filteredSidebar = SIDEBAR_COMPONENTS_LIST.filter((name) =>
-    name.toLowerCase().includes(sidebarFilter.toLowerCase())
-  );
-
   return (
     <div className="docs-layout" style={{ maxWidth: '1520px', padding: '24px 24px 80px' }}>
-      {/* ── Left Sidebar (List of all components) ── */}
+      {/* ── Left Sidebar (Categorized Real Components Only) ── */}
       <aside className="docs-sidebar">
         <input
           type="text"
-          placeholder="Filter 171 components..."
+          placeholder="Filter components..."
           value={sidebarFilter}
           onChange={(e) => setSidebarFilter(e.target.value)}
           className="docs-search-input"
         />
 
-        <ul className="docs-nav-list">
-          {filteredSidebar.map((name) => {
-            const itemSlug = name.toLowerCase().replace(/\s+/g, '-');
-            const isSelected = itemSlug === slug || (slug === 'balatro' && name === 'Balatro');
-            return (
-              <li key={name}>
-                <Link
-                  href={`/components/${itemSlug}`}
-                  className={`docs-nav-item ${isSelected ? 'active' : ''}`}
-                  style={{
-                    color: isSelected ? 'var(--purple-300)' : '',
-                    fontWeight: isSelected ? 700 : 500,
-                  }}
-                >
-                  {name}
-                </Link>
-              </li>
-            );
-          })}
-        </ul>
+        {COMPONENT_CATEGORIES.map((group) => {
+          const matchingItems = group.items.filter((item) =>
+            item.name.toLowerCase().includes(sidebarFilter.toLowerCase())
+          );
+          if (matchingItems.length === 0 && sidebarFilter) return null;
+
+          return (
+            <div key={group.category} className="docs-nav-group">
+              <h4 className="docs-group-title">{group.category}</h4>
+              <ul className="docs-nav-list">
+                {matchingItems.map((item) => {
+                  const isSelected = item.id === slug;
+                  return (
+                    <li key={item.id}>
+                      <Link
+                        href={`/components/${item.id}`}
+                        className={`docs-nav-item ${isSelected ? 'active' : ''}`}
+                        style={{
+                          color: isSelected ? 'var(--purple-300)' : '',
+                          fontWeight: isSelected ? 700 : 500,
+                        }}
+                      >
+                        <span>{item.name}</span>
+                        {item.badge && (
+                          <span className="nav-badge-pill">{item.badge}</span>
+                        )}
+                      </Link>
+                    </li>
+                  );
+                })}
+              </ul>
+            </div>
+          );
+        })}
       </aside>
 
       {/* ── Center Content (Stage, Controls & Code View) ── */}
