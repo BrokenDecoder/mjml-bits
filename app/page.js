@@ -1,7 +1,6 @@
 import Link from 'next/link';
-import Badge from '@/components/Badge';
 import CodePreview from '@/components/CodePreview';
-import { ArrowRightIcon, GitHubIcon } from '@/components/Icons';
+import { ArrowRightIcon } from '@/components/Icons';
 
 export default function HomePage() {
   return (
@@ -10,8 +9,6 @@ export default function HomePage() {
         <div className="hero-grid">
           {/* Left Column: Hero Copy & Actions */}
           <div className="hero-left">
-            <Badge tag="NEW COMPONENT" label="AERO SHARDS" href="/docs" />
-
             <h1 className="hero-title">
               MJML components for{' '}
               <span className="text-gradient">creative emails</span>
@@ -27,17 +24,6 @@ export default function HomePage() {
                 <span>Browse Components</span>
                 <ArrowRightIcon className="w-4 h-4" />
               </Link>
-
-              <a
-                href="https://github.com/BrokenDecoder/mjml-bits"
-                target="_blank"
-                rel="noreferrer"
-                className="btn-secondary"
-              >
-                <GitHubIcon className="w-4 h-4" />
-                <span>Star on GitHub</span>
-                <span style={{ color: 'var(--text-muted)' }}>46.6K</span>
-              </a>
             </div>
 
             <div className="hero-stats">
