@@ -1,8 +1,8 @@
 :root {
-  --bg-color: #09090b;
+  --bg-color: #08080c;
   --bg-surface: #121217;
   --bg-surface-elevated: #181820;
-  --bg-surface-card: rgba(20, 20, 26, 0.85);
+  --bg-surface-card: rgba(18, 18, 24, 0.82);
   
   --border-subtle: rgba(255, 255, 255, 0.08);
   --border-light: rgba(255, 255, 255, 0.15);
@@ -54,69 +54,39 @@ button {
   cursor: pointer;
 }
 
-/* Background Dotted Grid */
-.bg-grid {
-  position: fixed;
-  inset: 0;
-  background-image: radial-gradient(rgba(255, 255, 255, 0.09) 1px, transparent 1px);
-  background-size: 28px 28px;
-  pointer-events: none;
-  z-index: 0;
-}
-
-/* Ambient Aurora Glow */
-.aurora-container {
+/* Site Background System */
+.site-background-wrapper {
   position: fixed;
   inset: 0;
   pointer-events: none;
   overflow: hidden;
   z-index: 0;
+  background: #08080c;
 }
 
-.aurora-glow-left {
+.darkveil-container {
   position: absolute;
-  bottom: -10%;
-  left: -5%;
-  width: 65vw;
-  height: 65vw;
-  max-width: 850px;
-  max-height: 850px;
-  background: radial-gradient(circle, rgba(168, 85, 247, 0.28) 0%, rgba(126, 34, 206, 0.16) 45%, transparent 70%);
-  filter: blur(80px);
-  animation: pulse-aurora 8s ease-in-out infinite alternate;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0.85;
+  filter: contrast(1.15) brightness(0.95);
 }
 
-.aurora-glow-right {
+.bg-vignette {
   position: absolute;
-  top: 15%;
-  right: -10%;
-  width: 50vw;
-  height: 50vw;
-  max-width: 700px;
-  max-height: 700px;
-  background: radial-gradient(circle, rgba(147, 51, 234, 0.18) 0%, rgba(99, 102, 241, 0.1) 40%, transparent 65%);
-  filter: blur(90px);
-  animation: float-aurora 12s ease-in-out infinite alternate;
+  inset: 0;
+  background: radial-gradient(circle at 50% 35%, transparent 35%, rgba(8, 8, 12, 0.8) 100%);
+  pointer-events: none;
 }
 
-@keyframes pulse-aurora {
-  0% {
-    transform: scale(0.95) translate(0, 0);
-    opacity: 0.8;
-  }
-  100% {
-    transform: scale(1.1) translate(30px, -20px);
-    opacity: 1;
-  }
-}
-
-@keyframes float-aurora {
-  0% {
-    transform: translate(0, 0) scale(1);
-  }
-  100% {
-    transform: translate(-40px, 30px) scale(1.15);
-  }
+/* Background Dotted Grid */
+.bg-grid {
+  position: absolute;
+  inset: 0;
+  background-image: radial-gradient(rgba(255, 255, 255, 0.09) 1px, transparent 1px);
+  background-size: 28px 28px;
+  pointer-events: none;
 }
 
 /* App Wrapper */
@@ -143,9 +113,9 @@ button {
   z-index: 100;
   height: 60px;
   border-bottom: 1px solid var(--border-subtle);
-  background: rgba(9, 9, 11, 0.8);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
+  background: rgba(8, 8, 12, 0.78);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
 }
 
 .navbar-inner {
@@ -203,12 +173,12 @@ button {
 
 .nav-link:hover {
   color: #ffffff;
-  background: rgba(255, 255, 255, 0.05);
+  background: rgba(255, 255, 255, 0.06);
 }
 
 .nav-link.active {
   color: #ffffff;
-  background: rgba(255, 255, 255, 0.08);
+  background: rgba(255, 255, 255, 0.1);
 }
 
 .nav-right {
@@ -353,8 +323,8 @@ button {
   display: inline-flex;
   align-items: center;
   gap: 8px;
-  background: rgba(168, 85, 247, 0.1);
-  border: 1px solid rgba(168, 85, 247, 0.25);
+  background: rgba(168, 85, 247, 0.12);
+  border: 1px solid rgba(168, 85, 247, 0.28);
   padding: 5px 14px;
   border-radius: 9999px;
   font-size: 12px;
@@ -364,8 +334,8 @@ button {
 }
 
 .badge-pill:hover {
-  background: rgba(168, 85, 247, 0.18);
-  border-color: rgba(168, 85, 247, 0.4);
+  background: rgba(168, 85, 247, 0.2);
+  border-color: rgba(168, 85, 247, 0.45);
 }
 
 .badge-tag {
@@ -385,9 +355,9 @@ button {
   border: 1px solid var(--border-subtle);
   border-radius: 14px;
   overflow: hidden;
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
-  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5), 0 0 30px rgba(168, 85, 247, 0.1);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5), 0 0 30px rgba(168, 85, 247, 0.12);
 }
 
 .code-card-header {
@@ -458,8 +428,8 @@ button {
 }
 
 .theme-tab.active {
-  background: rgba(168, 85, 247, 0.2);
-  color: var(--purple-400);
+  background: rgba(168, 85, 247, 0.25);
+  color: var(--purple-300);
 }
 
 .theme-tab:hover:not(.active) {
@@ -553,13 +523,13 @@ button {
   display: flex;
   flex-direction: column;
   transition: all 0.2s ease;
-  backdrop-filter: blur(12px);
+  backdrop-filter: blur(16px);
 }
 
 .tool-card:hover {
   border-color: rgba(168, 85, 247, 0.35);
   transform: translateY(-3px);
-  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.4), 0 0 20px rgba(168, 85, 247, 0.1);
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.4), 0 0 20px rgba(168, 85, 247, 0.12);
 }
 
 .tool-icon-wrapper {
@@ -678,7 +648,7 @@ button {
   border-radius: 14px;
   overflow: hidden;
   transition: all 0.2s ease;
-  backdrop-filter: blur(12px);
+  backdrop-filter: blur(16px);
 }
 
 .sponsor-card:hover {

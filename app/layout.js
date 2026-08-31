@@ -1,5 +1,6 @@
 import './globals.css';
 import Navbar from '@/components/Navbar';
+import Background from '@/components/Background';
 
 export const metadata = {
   title: 'MJML Bits — Expressive Components for Responsive Emails',
@@ -11,12 +12,8 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <body>
-        {/* Background Grid & Aurora Ambient Elements */}
-        <div className="bg-grid" aria-hidden="true" />
-        <div className="aurora-container" aria-hidden="true">
-          <div className="aurora-glow-left" />
-          <div className="aurora-glow-right" />
-        </div>
+        {/* Full-Screen WebGL Background & Grid */}
+        <Background />
 
         {/* Main Application Container */}
         <div className="app-wrapper">
