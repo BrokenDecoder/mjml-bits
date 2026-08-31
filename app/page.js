@@ -7,6 +7,7 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { ArrowRightIcon } from '@/components/Icons';
 import ComparisonSlider from '@/components/ComparisonSlider';
 import FoldText from '@/components/FoldText';
+import ComponentsGallerySection from '@/components/ComponentsGallerySection';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -324,7 +325,7 @@ export default function HomePage() {
       {/* Comparison Slider Showcase Section */}
       <section
         ref={sliderSectionRef}
-        style={{ padding: '0 24px 120px', position: 'relative', zIndex: 2 }}
+        style={{ padding: '0 24px 100px', position: 'relative', zIndex: 2 }}
       >
         <div className="container">
           <div style={{ textAlign: 'center', marginBottom: '36px' }}>
@@ -370,6 +371,9 @@ export default function HomePage() {
           </div>
         </div>
       </section>
+
+      {/* ── Browse All Components Section on Home Page ── */}
+      <ComponentsGallerySection />
     </div>
   );
 }
