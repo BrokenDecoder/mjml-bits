@@ -34,24 +34,86 @@ export function GitHubIcon({ className = "w-4 h-4", ...props }) {
   );
 }
 
-export const SearchIcon = Search;
-export const FilterIcon = SlidersHorizontal;
-export const SunIcon = Sun;
-export const ArrowRightIcon = ArrowRight;
-export const ChevronDownIcon = ChevronDown;
-export const CopyIcon = Copy;
-export const CheckIcon = Check;
-export const PaletteIcon = Palette;
-export const ShapesIcon = Shapes;
-export const ImageIcon = ImageIconLucide;
-export const DiamondIcon = Gem;
-export const TrophyIcon = Trophy;
-export const SparklesIcon = Sparkles;
-export const BlocksIcon = Boxes;
-export const LayersIcon = Layers;
-export const MailIcon = Mail;
-export const FlameIcon = Flame;
-export const StarIcon = Star;
-export const HeartIcon = Heart;
-export const ShareIcon = Share2;
-export const CodeIcon = Code;
+export function HeartIcon(props) {
+  return <Heart {...props} />;
+}
+
+export function ShareIcon(props) {
+  return <Share2 {...props} />;
+}
+
+export function CodeIcon(props) {
+  return <Code {...props} />;
+}
+
+export function CopyIcon(props) {
+  return <Copy {...props} />;
+}
+
+export function CheckIcon(props) {
+  return <Check {...props} />;
+}
+
+export function SearchIcon(props) {
+  return <Search {...props} />;
+}
+
+export function FilterIcon(props) {
+  return <SlidersHorizontal {...props} />;
+}
+
+export function SunIcon(props) {
+  return <Sun {...props} />;
+}
+
+export function ArrowRightIcon(props) {
+  return <ArrowRight {...props} />;
+}
+
+export function ChevronDownIcon(props) {
+  return <ChevronDown {...props} />;
+}
+
+export function PaletteIcon(props) {
+  return <Palette {...props} />;
+}
+
+export function ShapesIcon(props) {
+  return <Shapes {...props} />;
+}
+
+export function ImageIcon(props) {
+  return <ImageIconLucide {...props} />;
+}
+
+export function DiamondIcon(props) {
+  return <Gem {...props} />;
+}
+
+export function TrophyIcon(props) {
+  return <Trophy {...props} />;
+}
+
+export function SparklesIcon(props) {
+  return <Sparkles {...props} />;
+}
+
+export function BlocksIcon(props) {
+  return <Boxes {...props} />;
+}
+
+export function LayersIcon(props) {
+  return <Layers {...props} />;
+}
+
+export function MailIcon(props) {
+  return <Mail {...props} />;
+}
+
+export function FlameIcon(props) {
+  return <Flame {...props} />;
+}
+
+export function StarIcon(props) {
+  return <Star {...props} />;
+}
