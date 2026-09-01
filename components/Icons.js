@@ -20,6 +20,13 @@ import {
   Heart,
   Share2,
   Code,
+  Play,
+  Smartphone,
+  Monitor,
+  Download,
+  RefreshCw,
+  Eye,
+  Wand2,
 } from 'lucide-react';
 
 export function GitHubIcon({ className = "w-4 h-4", ...props }) {
@@ -116,4 +123,32 @@ export function FlameIcon(props) {
 
 export function StarIcon(props) {
   return <Star {...props} />;
+}
+
+export function PlayIcon(props) {
+  return <Play {...props} />;
+}
+
+export function SmartphoneIcon(props) {
+  return <Smartphone {...props} />;
+}
+
+export function MonitorIcon(props) {
+  return <Monitor {...props} />;
+}
+
+export function DownloadIcon(props) {
+  return <Download {...props} />;
+}
+
+export function RefreshIcon(props) {
+  return <RefreshCw {...props} />;
+}
+
+export function EyeIcon(props) {
+  return <Eye {...props} />;
+}
+
+export function FormatIcon(props) {
+  return <Wand2 {...props} />;
 }
